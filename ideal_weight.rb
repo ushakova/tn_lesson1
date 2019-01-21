@@ -2,7 +2,7 @@ puts 'Ваше имя: '
 name = gets.chomp.capitalize!
 
 puts 'Ваш рост: '
-height = gets.chomp.to_i
+height = gets.to_i
 
 ideal_weight = height - 110
 

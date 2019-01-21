@@ -1,23 +1,23 @@
-array = []
+def roots(d, a, b)
+  roots_list = []
+  roots_list << (-b + Math.sqrt(d)) / 2 * a
+  return roots_list if d.zero?
+  roots_list << (-b - Math.sqrt(d)) / 2 * a
+end
+
+coefficients = []
 [1, 2, 3].each do |elem|
   puts "Коэффициент #{elem}: "
   coefficient = gets.chomp
   raise 'Только числа' unless coefficient =~ /[0-9]/
-  array << coefficient.to_f
+  coefficients << coefficient.to_f
 end
-raise 'Первый коэффициент не может равняться нулю' if array.first.zero?
-a, b, c = array
+raise 'Первый коэффициент не может равняться нулю' if coefficients.first.zero?
+a, b, c = coefficients
 
 discriminant = b**2 - 4 * a * c
 
-def roots(d, a, b)
-  roots_list = []
-  x1 = (-b + Math.sqrt(d)) / 2 * a
-  x2 = (-b - Math.sqrt(d)) / 2 * a
-  roots_list << x1 << x2
-end
-
-if discriminant < 0
+if discriminant.negative?
   puts 'Действительных корней нет'
 else
   roots(discriminant, a, b).uniq.map { |root| puts root }
