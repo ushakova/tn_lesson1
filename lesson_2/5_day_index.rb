@@ -5,16 +5,8 @@ def leap_year?(year)
 end
 
 def count_days(day, month, year)
-  counter = 0
-  counter += 1 if leap_year?(year) && (month > 2)
-  MONTHS.each_with_index do |days, index|
-    if index + 1 == month
-      counter += day
-      break
-    end
-    counter += days
-  end
-  counter
+  extra_day = leap_year?(year) && (month > 2) ? 1 : 0
+  MONTHS.take(month-1).sum + day + extra_day
 end
 
 puts 'Укажите число:'
