@@ -1,20 +1,18 @@
 class Route
-  attr_accessor :first_station, :last_station, :way_stations
+  attr_accessor :stations
   def initialize(first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
-    @way_stations = []
+    @stations = [first_station, last_station]
   end
 
   def add_station(station)
-    way_stations << station
+    stations.insert(-2, station)
   end
 
   def delete_station(station)
-    way_stations.delete(station)
+    stations.delete(station)
   end
 
   def print_all_way_stations
-    print way_stations
+    puts stations.map { |station| station.name }
   end
 end
