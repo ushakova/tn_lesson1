@@ -36,26 +36,34 @@ class Train
   end
 
   def next_station
-    route.stations[current_station_index + 1]
+    route.stations[next_index]
   end
 
   def previous_station
-    route.stations[current_station_index - 1]
+    route.stations[previos_index]
   end
 
   def move_back
     self.current_sation = previous_station
-    self.current_station_index = current_station_index - 1
+    self.current_station_index = previos_index
   end
 
   def move_forward
     self.current_sation = next_station
-    self.current_station_index = current_station_index + 1
+    self.current_station_index = next_index
   end
 
   private
 
   def not_moving?
     speed.zero?
+  end
+
+  def next_index
+    current_station_index + 1
+  end
+
+  def previos_index
+    current_station_index - 1
   end
 end
