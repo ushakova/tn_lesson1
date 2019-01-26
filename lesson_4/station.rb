@@ -1,4 +1,3 @@
-
 class Station
   attr_accessor :trains, :name
 

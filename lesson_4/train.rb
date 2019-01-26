@@ -1,5 +1,5 @@
 class Train
-  attr_reader :speed, :route, :current_station, :wagons, :number, :wagon_type
+  attr_reader :speed, :route, :current_station, :wagons, :number, :type
   def initialize(number)
     @number = number
     @wagons = []
@@ -15,7 +15,7 @@ class Train
   end
 
   def attach(wagon)
-    return unless not_moving? || wagon.is_a?(wagon_type)
+    return unless not_moving? || wagon.type == type
 
     wagons << wagon
   end
@@ -30,12 +30,13 @@ class Train
     self.route = route
     self.current_station_index = 0
     self.current_station = route.stations.first
-    self.current_station.take_train(self)
+    current_station.take_train(self)
   end
 
   def move_back
     return if current_station_index.zero?
-    self.current_station.get_train_away(self)
+
+    current_station.get_train_away(self)
     previous_station.take_train(self)
     self.current_station = previous_station
     self.current_station_index = previos_index
@@ -43,7 +44,8 @@ class Train
 
   def move_forward
     return if current_station_index == route.stations.size - 1
-    self.current_station.get_train_away(self)
+
+    current_station.get_train_away(self)
     next_station.take_train(self)
     self.current_station = next_station
     self.current_station_index = next_index
@@ -52,7 +54,7 @@ class Train
   protected
 
   attr_reader :current_station_index
-  attr_writer :current_station_index, :current_station, :wagons, :wagon_type, :route
+  attr_writer :current_station_index, :current_station, :wagons, :type, :route
 
   def not_moving?
     speed.zero?
@@ -68,11 +70,13 @@ class Train
 
   def next_station
     return unless route
+
     route.stations[next_index]
   end
 
   def previous_station
     return unless route
+
     route.stations[previos_index]
   end
 end

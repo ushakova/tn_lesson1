@@ -65,57 +65,68 @@ def create_train
   case choise
   when 1 then @all_trains << PassengerTrain.new(number)
   when 2 then @all_trains << CargoTrain.new(number)
+  else create_train
   end
 end
 
 def create_route
-  return if @route
+  return puts 'Маршрут уже существует' if @route
+  return puts 'Должно быть создано не менее двух станций' unless @all_stations.size > 1
   print_stations_list
   puts 'Выберите начальную станцию:'
   first_station = gets.to_i
   puts 'Выберите конечную станцию:'
   last_station = gets.to_i
-  @route = Route.new(@all_stations[first_station - 1], @all_stations[last_station - 1])
+  if first_station != last_station
+    @route = Route.new(@all_stations[first_station - 1], @all_stations[last_station - 1])
+  else
+    create_route
+  end
 end
 
 def add_station_to_route
+  return puts 'Создайте станцию' unless @all_stations.any?
+  return no_route unless @route
   station = @all_stations[chose_station - 1]
   @route&.add_station(station)
 end
 
 def delete_station_from_route
-  print @route
-  @route&.print_all_way_stations
+  return no_route unless @route
+  return 'В маршруте не может быть менее двух станций' if @route.stations.size == 2
+  @route.print_all_way_stations
   puts 'Выберите станцию:'
   choise = gets.to_i
-  @route&.delete_station(@all_stations[choise - 1])
+  @route&.delete_station(@all_stations[choise - 1]) if choise <= @route.stations.size
 end
 
 def set_route_to_train
-  return unless @route
+  return no_route unless @route
   train = chose_train
   train&.take_route(@route)
 end
 
 def attach_wagon_to_train
   train = chose_train
-  wagon = train.wagon_type.is_a?(PassengerTrain) ? PassengerWagon.new : CargoWagon.new
-  train.attach(wagon)
+  wagon = train&.type == 'Passanger' ? PassengerWagon.new : CargoWagon.new
+  train&.attach(wagon)
 end
 
 def detach_wagon_from_train
   train = chose_train
-  train.detach
+  train&.detach
 end
 
 def move_forward
   train = chose_train
-  train.move_forward
+  return no_route unless train&.route
+  train&.move_forward
 end
 
 def move_back
   train = chose_train
-  train.move_back
+  return no_route unless train&.route
+  train&.move_back
 end
 
 def print_stations_list
@@ -136,16 +147,26 @@ def print_trains_list_on_station
 end
 
 def chose_train
+  return no_trains unless @all_trains.any?
   print_trains_list
   puts 'Выберите поезд:'
   choise = gets.to_i
-  @all_trains[choise - 1]
+  choise <= @all_trains.size ? @all_trains[choise - 1] : chose_train
 end
 
 def chose_station
   print_stations_list
   puts 'Выберите станцию:'
   choise = gets.to_i
+  choise <= @all_stations.size ? choise : chose_station
+end
+
+def no_trains
+  puts 'Поезда ещё не созданы'
+end
+
+def no_route
+  puts 'Маршрут ещё не задан'
 end
 
 main_menu

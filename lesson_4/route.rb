@@ -13,6 +13,8 @@ class Route
   end
 
   def print_all_way_stations
-    stations.each_with_index { |station, index| puts "#{index + 1}. #{station.name}" }
+    stations.each_with_index do |station, index|
+      puts "#{index + 1}. #{station.name}"
+    end
   end
 end
