@@ -17,6 +17,7 @@ class Train
 
   def valid?
     validate!
+    true
   rescue
     false
   end
