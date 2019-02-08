@@ -3,8 +3,16 @@ class Route
 
   attr_accessor :stations
   def initialize(first_station, last_station)
+    @first_station = first_station
+    @last_station = last_station
     @stations = [first_station, last_station]
     register_instance
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
   end
 
   def add_station(station)
@@ -18,6 +26,15 @@ class Route
   def print_all_way_stations
     stations.each_with_index do |station, index|
       puts "#{index + 1}. #{station.name}"
+    end
+  end
+
+  private
+  attr_reader :first_station, :last_station
+
+  def validate!
+    if first_station.nil? || last_station.nil?
+      raise 'Маршрут должен содержать начальную и конечную станцию'
     end
   end
 end

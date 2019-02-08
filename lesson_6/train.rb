@@ -9,14 +9,16 @@ class Train
     @number = number.to_s
     @wagons = []
     @speed = 0
-    @@all_trains[@number] = self
     validate!
+    @@all_trains[@number] = self
     register_instance
     puts "Создан поезд с номером #{number}"
   end
 
   def valid?
-    number_format_valid?
+    validate!
+  rescue
+    false
   end
 
   def self.find(number)
@@ -32,8 +34,9 @@ class Train
   end
 
   def attach(wagon)
-    return unless not_moving? || wagon.type == type
+    return unless not_moving?
 
+    validate_wagon_type!
     wagons << wagon
   end
 
@@ -75,6 +78,10 @@ class Train
 
   def validate!
     raise 'Невалидный формат номера' unless number_format_valid?
+  end
+
+  def validate_wagon_type!
+    raise 'Вагон этого типа не может быть прицеплен к этому поезду' unless wagon.type == type
   end
 
   def number_format_valid?

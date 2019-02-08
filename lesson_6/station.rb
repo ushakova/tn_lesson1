@@ -7,14 +7,16 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
-    @@all_stations << self
     validate!
+    @@all_stations << self
     register_instance
     puts "Создана станция  #{name}"
   end
 
   def valid?
-    name_valid?
+    validate!
+  rescue
+    false
   end
 
   def self.all
