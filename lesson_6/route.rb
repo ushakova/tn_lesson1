@@ -34,7 +34,7 @@ class Route
   attr_reader :first_station, :last_station
 
   def validate!
-    if first_station.nil? || last_station.nil? || !station?(first_station) || !station?(last_station)
+    unless station?(first_station) && station?(last_station)
       raise 'Маршрут должен содержать начальную и конечную станцию'
     end
   end
