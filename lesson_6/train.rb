@@ -3,10 +3,12 @@ class Train
   include InstanceCounter
 
   attr_reader :speed, :route, :current_station, :wagons, :number, :type
+  TYPES = %w[Cargo Passenger].freeze
   @@all_trains = {}
 
-  def initialize(number)
+  def initialize(number, type)
     @number = number.to_s
+    @type = type
     @wagons = []
     @speed = 0
     validate!
@@ -79,6 +81,7 @@ class Train
 
   def validate!
     raise 'Невалидный формат номера' unless number_format_valid?
+    raise 'Недопустимый тип поезда' unless TYPES.include?(type)
   end
 
   def validate_wagon_type!
