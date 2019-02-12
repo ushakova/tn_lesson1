@@ -39,7 +39,7 @@ class Train
   def attach(wagon)
     return unless not_moving?
 
-    validate_wagon_type!
+    validate_wagon_type!(wagon)
     wagons << wagon
   end
 
@@ -84,7 +84,7 @@ class Train
     raise 'Недопустимый тип поезда' unless TYPES.include?(type)
   end
 
-  def validate_wagon_type!
+  def validate_wagon_type!(wagon)
     raise 'Вагон этого типа не может быть прицеплен к этому поезду' unless wagon.type == type
   end
 

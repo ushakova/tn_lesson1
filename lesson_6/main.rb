@@ -114,7 +114,7 @@ end
 
 def attach_wagon_to_train
   train = chose_train
-  wagon = train&.type == 'Passanger' ? PassengerWagon.new : CargoWagon.new
+  wagon = train&.type == 'Passenger' ? PassengerWagon.new : CargoWagon.new
   train&.attach(wagon)
 end
 
