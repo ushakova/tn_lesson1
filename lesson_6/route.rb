@@ -12,7 +12,7 @@ class Route
   def valid?
     validate!
     true
-  rescue
+  rescue StandardError
     false
   end
 
@@ -31,12 +31,13 @@ class Route
   end
 
   private
+
   attr_reader :first_station, :last_station
 
   def validate!
-    unless station?(first_station) && station?(last_station)
-      raise 'Маршрут должен содержать начальную и конечную станцию'
-    end
+    return if station?(first_station) && station?(last_station)
+
+    raise 'Маршрут должен содержать начальную и конечную станцию'
   end
 
   def station?(station)

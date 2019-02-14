@@ -75,7 +75,10 @@ class Train
   end
 
   def each_wagon
-    wagons.each_with_index { |wagon, index| print "#{index + 1}. "; yield wagon }
+    wagons.each_with_index do |wagon, index|
+      print "#{index + 1}. "
+      yield wagon
+    end
   end
 
   protected
@@ -89,7 +92,9 @@ class Train
   end
 
   def validate_wagon_type!(wagon)
-    raise 'Вагон этого типа не может быть прицеплен к этому поезду' unless wagon.type == type
+    return if wagon.type == type
+
+    raise 'Такой вагон не может быть прицеплен к поезду'
   end
 
   def number_format_valid?

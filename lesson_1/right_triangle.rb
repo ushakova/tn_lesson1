@@ -7,6 +7,7 @@ sides = []
   puts "Сторона #{elem}: "
   side = gets.to_i
   raise 'Допускаются только положительные числа' unless side.positive?
+
   sides << side
 end
 

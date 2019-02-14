@@ -32,27 +32,31 @@ class Train
     self.route = route
     self.current_station_index = 0
     self.current_station = route.stations.first
-    self.current_station.take_train(self)
+    current_station.take_train(self)
   end
 
   def next_station
     return unless route
+
     route.stations[next_index]
   end
 
   def previous_station
     return unless route
+
     route.stations[previos_index]
   end
 
   def move_back
     return if current_station_index.zero?
+
     self.current_station = previous_station
     self.current_station_index = previos_index
   end
 
   def move_forward
     return if current_station_index == route.stations.size - 1
+
     self.current_station = next_station
     self.current_station_index = next_index
   end

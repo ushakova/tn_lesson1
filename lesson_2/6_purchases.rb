@@ -4,6 +4,7 @@ loop do
   puts 'Введите название товара или stop, чтобы выйти:'
   name = gets.chomp
   break if name.eql?('stop')
+
   puts 'Введите цену за единицу товара:'
   price = gets.to_f
   puts 'Введите кол-во товара:'

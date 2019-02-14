@@ -13,6 +13,6 @@ class Route
   end
 
   def print_all_way_stations
-    puts stations.map { |station| station.name }
+    puts stations.map(&:name)
   end
 end

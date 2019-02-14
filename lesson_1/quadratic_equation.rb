@@ -1,8 +1,9 @@
-def roots(d, a, b)
+def roots(discriminant, coefficient_a, coefficient_b)
   roots_list = []
-  roots_list << (-b + Math.sqrt(d)) / 2 * a
-  return roots_list if d.zero?
-  roots_list << (-b - Math.sqrt(d)) / 2 * a
+  roots_list << (- coefficient_b + Math.sqrt(discriminant)) / 2 * coefficient_a
+  return roots_list if discriminant.zero?
+
+  roots_list << (- coefficient_b - Math.sqrt(discriminant)) / 2 * coefficient_a
 end
 
 coefficients = []
@@ -10,9 +11,11 @@ coefficients = []
   puts "Коэффициент #{elem}: "
   coefficient = gets.chomp
   raise 'Только числа' unless coefficient =~ /[0-9]/
+
   coefficients << coefficient.to_f
 end
 raise 'Первый коэффициент не может равняться нулю' if coefficients.first.zero?
+
 a, b, c = coefficients
 
 discriminant = b**2 - 4 * a * c

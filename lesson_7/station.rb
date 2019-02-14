@@ -37,7 +37,10 @@ class Station
   end
 
   def each_train
-    trains.each_with_index { |train, index| print "#{index + 1}. "; yield train }
+    trains.each_with_index do |train, index|
+      print "#{index + 1}. "
+      yield train
+    end
   end
 
   private

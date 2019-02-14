@@ -23,7 +23,7 @@ class PassengerWagon < Wagon
   attr_writer :number_of_seats, :taken_seats
 
   def validate!
-    raise 'Кол-во мест должно быть числом' unless number_of_seats.class == Integer
-    raise 'Кол-во мест должно быть положительным числом' unless number_of_seats > 0
+    raise 'Кол-во мест - число' unless number_of_seats.class == Integer
+    raise 'Кол-во мест должно быть положительным' unless number_of_seats > 0
   end
 end

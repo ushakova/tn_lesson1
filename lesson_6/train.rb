@@ -20,7 +20,7 @@ class Train
   def valid?
     validate!
     true
-  rescue
+  rescue StandardError
     false
   end
 
@@ -85,7 +85,9 @@ class Train
   end
 
   def validate_wagon_type!(wagon)
-    raise 'Вагон этого типа не может быть прицеплен к этому поезду' unless wagon.type == type
+    return if wagon.type == type
+
+    raise 'Такой вагон не может быть прицеплен к поезду'
   end
 
   def number_format_valid?

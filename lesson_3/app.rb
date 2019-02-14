@@ -9,14 +9,14 @@ def move_forward(train)
   puts train.current_station.name
 end
 # new stations
-station_1 = Station.new('Mendeleevskaya')
-station_2 = Station.new('Universitet')
-station_3 = Station.new('Shabolovskaya')
-station_4 = Station.new('Yasenevo')
-station_5 = Station.new('Smolenskaya')
+mendeleevskaya = Station.new('Mendeleevskaya')
+universitet = Station.new('Universitet')
+shabolovskaya = Station.new('Shabolovskaya')
+yasenevo = Station.new('Yasenevo')
+smolenskaya = Station.new('Smolenskaya')
 
 # new route
-route = Route.new(station_1, station_5)
+route = Route.new(mendeleevskaya, smolenskaya)
 
 # new train
 train = Train.new(666, 'passanger', 6)
@@ -26,9 +26,9 @@ puts 'All stations:'
 route.print_all_way_stations
 
 puts '***Add new stations***'
-route.add_station(station_2)
-route.add_station(station_3)
-route.add_station(station_4)
+route.add_station(universitet)
+route.add_station(shabolovskaya)
+route.add_station(yasenevo)
 
 puts 'All stations:'
 route.print_all_way_stations
@@ -51,7 +51,6 @@ puts train.speed
 
 # trains route
 train.take_route(route)
-
 
 puts 'Current station:'
 puts train.current_station.name
