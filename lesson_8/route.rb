@@ -1,19 +1,17 @@
 class Route
   include InstanceCounter
+  include Validation
+
+  validate :first_station, :type, Station
+  validate :last_station, :type, Station
 
   attr_accessor :stations
   def initialize(first_station, last_station)
     @first_station = first_station
     @last_station = last_station
+    validate!
     @stations = [first_station, last_station]
     register_instance
-  end
-
-  def valid?
-    validate!
-    true
-  rescue StandardError
-    false
   end
 
   def add_station(station)
@@ -33,14 +31,4 @@ class Route
   private
 
   attr_reader :first_station, :last_station
-
-  def validate!
-    return if station?(first_station) && station?(last_station)
-
-    raise 'Маршрут должен содержать начальную и конечную станцию'
-  end
-
-  def station?(station)
-    station.class == Station
-  end
 end
